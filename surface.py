@@ -7,6 +7,8 @@ import os
 import json
 import shutil
 
+## surface generator
+
 
 CONFIG_PATH = "datagenerator.json"
 with open(CONFIG_PATH, 'r') as f:
