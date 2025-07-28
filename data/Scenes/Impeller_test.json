@@ -1,0 +1,62 @@
+{
+	"Configuration": 
+	{
+		"particleRadius": 0.025,
+		"numberOfStepsPerRenderUpdate": 4,
+		"density0": 1250, 
+		"simulationMethod": 4,
+		"gravitation": [0,-9.81,0], 
+		"cflMethod": 1, 
+		"cflFactor": 1,
+		"cflMaxTimeStepSize": 0.005,
+		"maxIterations": 100,
+		"maxError": 0.05,
+		"maxIterationsV": 500,
+		"maxErrorV": 0.005,		
+		"stiffness": 50000,
+		"exponent": 7,
+		"velocityUpdateMethod": 0,
+		"enableDivergenceSolver": true,
+		"particleAttributes": "velocity",
+		"boundaryHandlingMethod": 2
+	},
+	"Materials": [
+		{
+			"id": "Fluid",
+			"colorMapType": 1,
+			"surfaceTension": 0.072,
+			"surfaceTensionMethod": 2,
+			"viscosity": 0.001,
+			"viscosityMethod": 0,
+			"xsph": 0.0,
+			"xsphBoundary": 0.0
+		}
+	],
+	"RigidBodies": [
+		{
+			"id": 0,
+			"geometryFile": "data/models/fluidsample.obj",
+			"translation": [0,0,0],
+			"rotationAxis": [1, 0, 0],
+			"rotationAngle": -1.57079632,
+			"scale": [0.2, 0.2, 5.0],
+			"color": [0.1, 0.4, 0.6, 1.0],
+			"isDynamic": false,
+			"isWall": true,
+			"mapInvert": true, 
+			"mapThickness": 0.0,
+			"mapResolution": [25,25,25]
+		}
+	],
+	"FluidBlocks": [
+		{
+			"denseMode": 1,
+			"start": [-0.3, 0.1, -0.3],
+			"end": [0.3, 5.0, 0.3],
+			"translation": [0, 0.05, 0.0],
+			"scale": [1, 1, 1]
+		}
+	]	
+}
+
+
