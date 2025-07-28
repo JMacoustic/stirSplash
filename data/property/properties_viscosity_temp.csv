@@ -1,0 +1,4 @@
+mole fraction,density,surface tension,dynamic viscosity
+0,1000,0.072,0.000001
+0.02,1005,0.072,0.001
+0.04,1010,0.072,1
