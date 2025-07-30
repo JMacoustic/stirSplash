@@ -6,3 +6,4 @@ configs/
 videos/
 final_mesh/
 export/
+render_log.txt
