@@ -32,17 +32,10 @@ def rpm_sequence(rpm):
     omega_rad = 2 * np.pi * rpm / 60
     return [0,omega_rad, T_CUT_POWER, omega_rad, T_STOP_MOTOR, 0, DURATION, 0]
 
-def run_sim_with_properties(density, surface_tension, xsph, target_rpm, sim_id, prop_id):
+def run_sim_with_properties(density, surface_tension, visc_param, target_rpm, sim_id, prop_id, option):
     # Load base scene
     with open(SCENE_PATH, 'r') as f:
         scene = json.load(f)
-
-    # Modify properties
-    scene["Configuration"]["density0"] = density
-    scene["Materials"][0]["surfaceTension"] = surface_tension
-    scene["Materials"][0]["xsph"] = xsph
-    scene["Materials"][0]["xsphBoundary"] = xsph
-    #scene["Materials"][0]["viscosity"] = viscosity
 
     # Convert rpm to angular velocity (rad/s)
     sequence = rpm_sequence(target_rpm)
@@ -51,24 +44,43 @@ def run_sim_with_properties(density, surface_tension, xsph, target_rpm, sim_id, 
     #Random initial impeller angle
     scene["RigidBodies"][1]["rotationAngle"] = random.uniform(0, 2*3.14)
 
+    # Modify properties
+    scene["Configuration"]["density0"] = density
+    scene["Materials"][0]["surfaceTension"] = surface_tension
+
+    if option == "viscosity":
+        scene["Materials"][0]["viscosity"] = visc_param
+        scene["Materials"][0]["xsph"] = 0.003
+        scene["Materials"][0]["xsphBoundary"] = 0.003
+        config_dict = {
+            "density": density,
+            "surface_tension": surface_tension,
+            "viscosity": visc_param,
+            "RPM": target_rpm
+        }
+
+    if option == "xsph":
+        scene["Materials"][0]["xsph"] = visc_param
+        scene["Materials"][0]["xsphBoundary"] = visc_param
+        scene["Materials"][0]["viscosity"] = 0.000001
+        config_dict = {
+            "density": density,
+            "surface_tension": surface_tension,
+            "xsph": visc_param,
+            "RPM": target_rpm
+        }
+    
     # Save modified scene
     tmp_scene_path = f"temp_scene_{prop_id}{sim_id}.json"
     with open(tmp_scene_path, 'w') as f:
         json.dump(scene, f, indent=4)
-
-    # Output folder
+    
+    # set export path
     padded_id = f"{prop_id:02d}{sim_id:02d}"  # e.g., "010001", "010002", ..., "500050", ...
     output_dir = os.path.abspath(f"./export/sim_{padded_id}")
     os.makedirs(output_dir, exist_ok=True)
 
     # Save config_000X.json
-    config_dict = {
-        "density": density,
-        "surfaceTension": surface_tension,
-        #"viscosity": viscosity,
-        "xsph": xsph,
-        "rpm": target_rpm
-    }
     with open(os.path.join(output_dir, f"config_{padded_id}.json"), 'w') as f:
         json.dump(config_dict, f, indent=4)
 
@@ -95,11 +107,10 @@ def main():
     for idx, row in filtered_df.iterrows():
         density = float(row["density"])
         surface_tension = float(row["surface tension"])
-        xsph = float(row["xsph"])
-        #viscosity = float(row["dynamic viscosity"])
+        visc_param = float(row[config["visc_option"]])
 
         for rpm in rpm_values:
-            run_sim_with_properties(density, surface_tension, xsph, rpm, sim_id=sim_id, prop_id=prop_id)
+            run_sim_with_properties(density, surface_tension, visc_param, rpm, sim_id=sim_id, prop_id=prop_id, option=config["visc_option"])
             sim_id += 1  # Keep sim_id unique for each config
         prop_id += 1
         sim_id = 1

@@ -1,15 +1,16 @@
 {
     "SimulProperties":
     {
-        "scene_path" : "data/Scenes/MotorScene3.json",
-        "property_path" : "data/property/properties_test.csv",
+        "scene_path" : "data/Scenes/MotorScene4.json",
+        "property_path" : "data/property/properties_viscosity_50points.csv",
+        "visc_option": "viscosity",
         "export_fps" : 10.0,
         "duration" : 10.0,
         "t_cut_power" : 6.5,
         "t_stop_motor" : 7.5,
-        "rpm_min" : 550.0,
-        "rpm_max" : 550.0,
-        "rpm_grid" : 1
+        "rpm_min" : 270.0,
+        "rpm_max" : 450.0,
+        "rpm_grid" : 10
     },
 
     "MeshProperties":
@@ -18,13 +19,13 @@
         "start_frame" : 61,
         "end_frame" : 92,
 
-        "particle_radius": 0.03,
+        "particle_radius": 0.00175,
         "rest_density": 1100.0,
-        "smoothing_length": 3.3,
+        "smoothing_length": 3.5,
         "cube_size": 0.5,
         "iso_surface_threshold": 0.6,
         "mesh_smoothing_weights": false,
-        "mesh_smoothing_weights_normalization": 20.0,
+        "mesh_smoothing_weights_normalization": 20.0, 
         "mesh_smoothing_iters": 30,
         "normals_smoothing_iters": 10,
         "mesh_cleanup": true,
@@ -35,6 +36,6 @@
     },
 
     "RenderProperties":{
-        "RenderNum": 2
+        "RenderNum": 20
     }
 }

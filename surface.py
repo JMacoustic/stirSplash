@@ -6,6 +6,7 @@ from os import path as osp
 import os
 import json
 import shutil
+import string
 
 ## surface generator
 
@@ -14,6 +15,9 @@ CONFIG_PATH = "datagenerator.json"
 with open(CONFIG_PATH, 'r') as f:
     config_mesh = json.load(f)["MeshProperties"]
 
+with open(CONFIG_PATH, 'r') as f:
+    config_render = json.load(f)["RenderProperties"]
+
 RUST_BACKTRACE=config_mesh["rust_backtrace"]
 START_FRAME=config_mesh["start_frame"]
 END_FRAME=config_mesh["end_frame"]
@@ -21,16 +25,37 @@ END_FRAME=config_mesh["end_frame"]
 main_dir = sorted(glob.glob(osp.join("export", "sim_*")))
 config_repo = "configs"
 
+def generate_prefixes(n):
+    alphabet = string.ascii_uppercase
+    result = []
+    i = 0
+    while len(result) < n:
+        prefix = ""
+        temp = i
+        while True:
+            prefix = alphabet[temp % 26] + prefix
+            temp = temp // 26 - 1
+            if temp < 0:
+                break
+        result.append(prefix)
+        i += 1
+    return result
+
+prefixes = generate_prefixes(config_render["RenderNum"])
+
 for dataset in main_dir:
-    name = osp.basename(osp.normpath(dataset))
-    config = glob.glob(osp.join(dataset, "*.json"))[0]
+    for prefix in prefixes:
+        temp_name = osp.basename(osp.normpath(dataset))  # sim_0000
+        padded_id = temp_name.split("_")[1]   
+        name = f"{prefix}sim_{padded_id}"
+        config = glob.glob(osp.join(dataset, "*.json"))[0]
 
-    output_repo = osp.join("final_mesh", name)
-    output_dir = osp.join(output_repo, "mesh")
-    os.makedirs(output_dir, exist_ok=True)
+        output_repo = osp.join("final_mesh", temp_name)
+        output_dir = osp.join(output_repo, "mesh")
+        os.makedirs(output_dir, exist_ok=True)
 
-    shutil.copy(config, osp.join(output_repo, f"{name}.json"))
-    shutil.copy(config, osp.join(config_repo, f"{name}.json"))
+        shutil.copy(config, osp.join(output_repo, f"{name}.json"))
+        shutil.copy(config, osp.join(config_repo, f"{name}.json"))
 
     # rename the vtk_files
     vtk_files = sorted(glob.glob(osp.join(dataset, "vtk", "*.vtk")))

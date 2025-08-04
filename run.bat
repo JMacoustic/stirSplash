@@ -1,7 +1,7 @@
 @echo off
 
 REM ====== Setup ======
-pip install pandas pysplishsplash meshio pysplashsurf trimesh vessl pillow
+REM pip install pandas pysplishsplash meshio pysplashsurf trimesh vessl pillow
 
 REM Download Blender
 REM curl -L -o blender.zip https://download.blender.org/release/Blender4.3/blender-4.3.2-windows-x64.zip
@@ -23,22 +23,20 @@ REM del blender.zip
 REM del sequence_loader.zip
 
 REM ====== VTK Builder (80 sec per file) ======
-REM python jeeljil.py --start 1 --interval 0
-REM python jeeljil.py --start 5 --interval 3
-
-REM python jeeljil.py --start 9 --interval 3
-REM python jeeljil.py --start 13 --interval 3
-REM python jeeljil.py --start 17 --interval 3
-REM python jeeljil.py --start 21 --interval 3
-REM python jeeljil.py --start 25 --interval 3
-REM python jeeljil.py --start 29 --interval 3
-REM python jeeljil.py --start 33 --interval 3
-REM python jeeljil.py --start 37 --interval 3
-REM python jeeljil.py --start 41 --interval 4
-REM python jeeljil.py --start 45 --interval 4
+REM python jeeljil.py --start 1 --interval 4
+REM python jeeljil.py --start 6 --interval 4
+REM python jeeljil.py --start 11 --interval 4
+REM python jeeljil.py --start 16 --interval 4
+REM python jeeljil.py --start 21 --interval 4
+REM python jeeljil.py --start 26 --interval 4
+REM python jeeljil.py --start 31 --interval 3
+REM python jeeljil.py --start 35 --interval 3
+REM python jeeljil.py --start 39 --interval 3
+REM python jeeljil.py --start 43 --interval 3
+REM python jeeljil.py --start 47 --interval 3
 
 REM ====== Mesh Builder ======
-REM python surface.py
+python surface.py
 
 REM ====== Headless Render ======
 REM conda create -y -n py37_env python=3.7

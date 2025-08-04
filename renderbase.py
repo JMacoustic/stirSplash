@@ -63,8 +63,8 @@ def generate_options(num, seed = 10):
     for _ in range(num):
         render = RenderOptions()
         # render.water.basecolor = fluctuate(water.basecolor, (-0.1, -0.1, -0.1, 0))
-        render.water.roughness = water.roughness + random.uniform(-0.02, 0.02)
-        render.water.transmission = water.transmission + random.uniform(0, -0.02)
+        render.water.roughness = water.roughness + random.uniform(-0.02, 0.0)
+        render.water.transmission = water.transmission + random.uniform(0, -0.01)
         render.water.IOR = water.IOR + random.uniform(-0.1, 0.1)
 
         render.stainless.basecolor = fluctuate(stainless.basecolor, (0.1, 0.1, 0.1, 0))
@@ -78,8 +78,8 @@ def generate_options(num, seed = 10):
         render.light2power = 10 + random.uniform(-3, 3)
         render.light2rot = fluctuate((0, math.radians(20), math.radians(90)), (math.radians(10), math.radians(10), math.radians(10)))
 
-        render.campos = fluctuate((0, -0.3, 1.5), (0.02, 0.02, 0))
-        render.camrot = fluctuate((0, 0, 0), (math.radians(5), math.radians(5), math.radians(5)))
+        render.campos = fluctuate((0, -0.3, 1.5), (0.01, 0.01, 0))
+        render.camrot = fluctuate((0, 0, 0), (math.radians(2), math.radians(2), math.radians(2)))
 
         optionlist.append(render)
     
@@ -311,7 +311,7 @@ for prefix, option in zip(prefixlist, optionlist):
     fluid = bpy.context.view_layer.objects.active
     fluid.data.materials.append(water)
     fluid.rotation_euler = (math.radians(90), 0, 0)
-    fluid.scale = (0.5, 0.5, 0.5)
+    fluid.scale = (10, 10, 10)
 
     ### Load impeller sequence
     bpy.context.scene.BSEQ.path = impeller_path
@@ -323,7 +323,7 @@ for prefix, option in zip(prefixlist, optionlist):
     impeller = bpy.context.view_layer.objects.active
     impeller.data.materials.append(stainless)
     impeller.rotation_euler = (math.radians(90), 0, 0)
-    impeller.scale = (0.5, 0.5, 0.5)
+    impeller.scale = (10, 10, 10)
 
     #### Render Settings
     bpy.context.scene.render.engine = 'CYCLES'

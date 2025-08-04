@@ -1,7 +1,7 @@
 {
 	"Configuration": 
 	{
-		"particleRadius": 0.035,
+		"particleRadius": 0.00175,
 		"numberOfStepsPerRenderUpdate": 4,
 		"density0": 1250, 
 		"simulationMethod": 4,
@@ -13,7 +13,7 @@
 		"maxError": 0.001,
 		"maxIterationsV": 1000,
 		"maxErrorV": 0.001,		
-		"stiffness": 1000,
+		"stiffness": 200,
 		"exponent": 7,
 		"velocityUpdateMethod": 0,
 		"enableDivergenceSolver": true,
@@ -24,12 +24,12 @@
 		{
 			"id": "Fluid",
 			"colorMapType": 1,
-			"surfaceTension": 0.2,
+			"surfaceTension": 0.072,
 			"surfaceTensionMethod": 2,
-			"viscosity": 0.001,
+			"viscosity": 0.000001,
 			"viscosityMethod": 6,
-			"xsph": 0.001,
-			"xsphBoundary": 0.001
+			"xsph": 0.0,
+			"xsphBoundary": 0.0
 		}
 	],
 	"RigidBodies": [
@@ -39,7 +39,7 @@
 			"translation": [0,0,0],
 			"rotationAxis": [1, 0, 0],
 			"rotationAngle": -1.57079632,
-			"scale": [0.2, 0.2, 1.0],
+			"scale": [0.01, 0.01, 0.05],
 			"color": [0.1, 0.4, 0.6, 1.0],
 			"isDynamic": false,
 			"isWall": true,
@@ -50,10 +50,10 @@
 		{
 			"id": 1,
 			"geometryFile": "data/models/impeller_rotated.obj",
-			"translation": [0,0.2,0],
+			"translation": [0, 0.005, 0],
 			"rotationAxis": [0, 1, 0],
 			"rotationAngle": 0.0,
-			"scale": [0.2, 0.2, 0.2],
+			"scale": [0.01, 0.01, 0.01],
 			"color": [0.1, 0.4, 0.6, 1.0], 
 			"density": 10000,
 			"isDynamic": true,
@@ -78,8 +78,8 @@
 			"denseMode": 0,
 			"start": [-0.5, -0.5, -0.5],
 			"end": [0.5, 1, 0.5],
-			"translation": [0.0, 3.0, 0.0],
-			"scale": [1.0,1.6,1.0]
+			"translation": [0.0, 0.1, 0.0],
+			"scale": [0.05,0.13,0.05]
 		}
 	]
 }
